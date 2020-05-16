@@ -2,6 +2,7 @@ package com.alberto.agenda.controller;
 
 import java.util.Objects;
 
+import com.alberto.agenda.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +21,8 @@ import com.alberto.agenda.service.JwtUserDetailsService;
 import com.alberto.agenda.config.JwtTokenUtil;
 import com.alberto.agenda.model.JwtRequest;
 import com.alberto.agenda.model.JwtResponse;
+
+import javax.xml.ws.Response;
 
 @RestController
 @CrossOrigin
@@ -48,6 +51,10 @@ public class JwtAuthenticationController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody UserModel user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
     }
 
     private void authenticate(String username, String password) throws Exception {
