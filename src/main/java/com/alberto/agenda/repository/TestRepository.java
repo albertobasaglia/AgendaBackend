@@ -10,5 +10,5 @@ public interface TestRepository extends CrudRepository<TestEntity,Long> {
     List<TestEntity> findByAge(int age);
     TestEntity findById(long id);
     @Query("SELECT T FROM TestEntity T WHERE T.age < 10")
-    TestRepository findByAgeLessThan10();
+    List<TestEntity> findByAgeLessThan10();
 }
