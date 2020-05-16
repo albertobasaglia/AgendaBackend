@@ -1,5 +1,7 @@
 package com.alberto.agenda.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class PersonaEntity {
     private String cognome;
     private String email;
     private String username;
+    @JsonIgnore
     private String password;
     @OneToMany(mappedBy = "persona")
     private List<TelefonoEntity> telefoni;
