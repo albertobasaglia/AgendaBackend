@@ -2,6 +2,8 @@ package com.alberto.agenda.controller;
 
 import com.alberto.agenda.entity.TestEntity;
 import com.alberto.agenda.repository.TestRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,5 +27,9 @@ public class TestController {
         List<TestEntity> entities = new ArrayList<>();
         repository.findAll().forEach(entities::add);
         return entities;
+    }
+    @GetMapping("/username")
+    public String currentUserName(Authentication authentication) {
+        return authentication.getName();
     }
 }
