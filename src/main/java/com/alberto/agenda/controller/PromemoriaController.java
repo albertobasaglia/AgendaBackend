@@ -43,14 +43,14 @@ public class PromemoriaController {
     @PostMapping("/create")
     public ResponseEntity create(Authentication authentication, @Valid @RequestBody PromemoriaModel promemoriaModel) {
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
-        List<PromemoriaEntity> promemoriaEntities = promemoriaRepository.findByDataInizioIsBetweenOrDataFineIsBetween(
-                promemoriaModel.getDataInizio(),
-                promemoriaModel.getDataFine(),
-                promemoriaModel.getDataInizio(),
-                promemoriaModel.getDataFine()
-        );
-        //TODO bisogna controllare anche: 1. quelli già ricorrenti 2.se ne stiamo inserendo uno ricorrente
-        if(promemoriaEntities.size() == 0) {
+//        List<PromemoriaEntity> promemoriaEntities = promemoriaRepository.findByDataInizioIsBetweenOrDataFineIsBetween(
+//                promemoriaModel.getDataInizio(),
+//                promemoriaModel.getDataFine(),
+//                promemoriaModel.getDataInizio(),
+//                promemoriaModel.getDataFine()
+//        );
+//        //TODO bisogna controllare anche: 1. quelli già ricorrenti 2.se ne stiamo inserendo uno ricorrente
+//        if(promemoriaEntities.size() == 0) {
             PromemoriaEntity promemoriaEntity = new PromemoriaEntity();
             promemoriaEntity.setPersona(personaEntity);
             promemoriaEntity.setRicorrenza(promemoriaModel.getRicorrenza());
@@ -59,9 +59,9 @@ public class PromemoriaController {
             promemoriaEntity.setDataFine(promemoriaModel.getDataFine());
             promemoriaRepository.save(promemoriaEntity);
             return new ResponseEntity(HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+//        } else {
+//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        }
     }
 
     @DeleteMapping("/delete/{id}")
