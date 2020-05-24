@@ -37,14 +37,25 @@ public class PromemoriaController {
     @PostMapping("/create")
     public ResponseEntity create(Authentication authentication, @Valid @RequestBody PromemoriaModel promemoriaModel) {
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
-        PromemoriaEntity promemoriaEntity = new PromemoriaEntity();
-        promemoriaEntity.setPersona(personaEntity);
-        promemoriaEntity.setRicorrenza(promemoriaModel.getRicorrenza());
-        promemoriaEntity.setDescrizione(promemoriaModel.getDescrizione());
-        promemoriaEntity.setDataInizio(promemoriaModel.getDataInizio());
-        promemoriaEntity.setDataFine(promemoriaModel.getDataFine());
-        promemoriaRepository.save(promemoriaEntity);
-        return new ResponseEntity(HttpStatus.OK);
+        List<PromemoriaEntity> promemoriaEntities = promemoriaRepository.findByDataInizioIsBetweenOrDataFineIsBetween(
+                promemoriaModel.getDataInizio(),
+                promemoriaModel.getDataFine(),
+                promemoriaModel.getDataInizio(),
+                promemoriaModel.getDataFine()
+        );
+        //TODO bisogna controllare anche: 1. quelli già ricorrenti 2.se ne stiamo inserendo uno ricorrente
+        if(promemoriaEntities.size() == 0) {
+            PromemoriaEntity promemoriaEntity = new PromemoriaEntity();
+            promemoriaEntity.setPersona(personaEntity);
+            promemoriaEntity.setRicorrenza(promemoriaModel.getRicorrenza());
+            promemoriaEntity.setDescrizione(promemoriaModel.getDescrizione());
+            promemoriaEntity.setDataInizio(promemoriaModel.getDataInizio());
+            promemoriaEntity.setDataFine(promemoriaModel.getDataFine());
+            promemoriaRepository.save(promemoriaEntity);
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
