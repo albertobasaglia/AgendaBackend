@@ -37,7 +37,7 @@ public class PersonaController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    List<PersonaInfo> mapEntityToInfo(List<PersonaEntity> personaEntities) {
+   private List<PersonaInfo> mapEntityToInfo(List<PersonaEntity> personaEntities) {
         ArrayList<PersonaInfo> personaInfos = new ArrayList<>();
         for(PersonaEntity personaEntity: personaEntities) {
             personaInfos.add(personaEntity.extractInfo());

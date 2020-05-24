@@ -25,7 +25,17 @@ public class PersonaEntity {
     @JsonIgnoreProperties("persona")
     private List<PromemoriaEntity> promemoria;
     @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable
     private List<AppuntamentoEntity> appuntamenti;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -95,6 +105,8 @@ public class PersonaEntity {
         personaInfo.setCognome(cognome);
         personaInfo.setNome(nome);
         personaInfo.setEmail(email);
+        personaInfo.setId(id);
+        personaInfo.setUsername(username);
         return personaInfo;
     }
 }

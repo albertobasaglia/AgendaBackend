@@ -1,9 +1,11 @@
 package com.alberto.agenda.model;
 
 public class PersonaInfo {
+    private Long id;
     private String email;
     private String nome;
     private String cognome;
+    private String username;
 
     public String getEmail() {
         return email;
@@ -27,5 +29,21 @@ public class PersonaInfo {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
