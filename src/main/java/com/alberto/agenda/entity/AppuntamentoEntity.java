@@ -15,6 +15,14 @@ public class AppuntamentoEntity {
     @ManyToMany(mappedBy = "appuntamenti")
     private List<PersonaEntity> persone;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getDescrizione() {
         return descrizione;
     }

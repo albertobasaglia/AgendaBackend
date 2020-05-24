@@ -1,5 +1,6 @@
 package com.alberto.agenda.entity;
 
+import com.alberto.agenda.model.PersonaInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -87,5 +88,13 @@ public class PersonaEntity {
 
     public void setAppuntamenti(List<AppuntamentoEntity> appuntamenti) {
         this.appuntamenti = appuntamenti;
+    }
+
+    public PersonaInfo extractInfo() {
+        PersonaInfo personaInfo = new PersonaInfo();
+        personaInfo.setCognome(cognome);
+        personaInfo.setNome(nome);
+        personaInfo.setEmail(email);
+        return personaInfo;
     }
 }
