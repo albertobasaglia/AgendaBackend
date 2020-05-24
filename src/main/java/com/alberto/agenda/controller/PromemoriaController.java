@@ -65,6 +65,8 @@ public class PromemoriaController {
         }
     }
 
+    //TODO edit
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(

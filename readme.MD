@@ -9,3 +9,5 @@
 - viene usato JWT per il login
 
 - uso l'ORM
+
+- per essere modificato l'appuntamento deve essere cancellato e ricreato
