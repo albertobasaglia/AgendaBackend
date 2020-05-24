@@ -18,16 +18,19 @@ public class TestController {
     TestController(TestRepository repository) {
         this.repository = repository;
     }
+
     @GetMapping("/last")
     public TestEntity getLast() {
         return repository.findById(1);
     }
+
     @GetMapping("/all")
     public List<TestEntity> getAll() {
         List<TestEntity> entities = new ArrayList<>();
         repository.findAll().forEach(entities::add);
         return entities;
     }
+
     @GetMapping("/username")
     public String currentUserName(Authentication authentication) {
         return authentication.getName();

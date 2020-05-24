@@ -21,7 +21,7 @@ public class PersonaEntity {
     @OneToMany(mappedBy = "persona")
     private List<PromemoriaEntity> promemoria;
     @ManyToMany(cascade = {CascadeType.ALL})
-    private List<AppuntamentiEntity> appuntamenti;
+    private List<AppuntamentoEntity> appuntamenti;
     public String getNome() {
         return nome;
     }
@@ -78,11 +78,11 @@ public class PersonaEntity {
         this.promemoria = promemoria;
     }
 
-    public List<AppuntamentiEntity> getAppuntamenti() {
+    public List<AppuntamentoEntity> getAppuntamenti() {
         return appuntamenti;
     }
 
-    public void setAppuntamenti(List<AppuntamentiEntity> appuntamenti) {
+    public void setAppuntamenti(List<AppuntamentoEntity> appuntamenti) {
         this.appuntamenti = appuntamenti;
     }
 }
