@@ -21,6 +21,7 @@ public class PersonaEntity {
     @JsonIgnoreProperties("persona")
     private List<TelefonoEntity> telefoni;
     @OneToMany(mappedBy = "persona")
+    @JsonIgnoreProperties("persona")
     private List<PromemoriaEntity> promemoria;
     @ManyToMany(cascade = {CascadeType.ALL})
     private List<AppuntamentoEntity> appuntamenti;
