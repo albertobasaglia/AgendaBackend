@@ -11,13 +11,17 @@ public class PromemoriaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne
-    //@JsonIgnoreProperties("promemoria")
-    @JsonIgnore
+    @JsonIgnoreProperties("promemoria")
     private PersonaEntity persona;
+
     private String descrizione;
+
     private Date dataInizio;
+
     private Date dataFine;
+
     private String ricorrenza;
 
     public Long getId() {

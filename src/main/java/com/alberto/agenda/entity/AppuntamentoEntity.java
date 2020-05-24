@@ -1,5 +1,8 @@
 package com.alberto.agenda.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -9,10 +12,15 @@ public class AppuntamentoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String descrizione;
+
     private Date dataInizio;
+
     private Date dataFine;
+
     @ManyToMany(mappedBy = "appuntamenti")
+    @JsonIgnoreProperties("appuntamenti")
     private List<PersonaEntity> persone;
 
     public Long getId() {

@@ -18,14 +18,20 @@ public class PersonaEntity {
     private String username;
     @JsonIgnore
     private String password;
+
     @OneToMany(mappedBy = "persona")
     @JsonIgnoreProperties("persona")
     private List<TelefonoEntity> telefoni;
+
     @OneToMany(mappedBy = "persona")
-    @JsonIgnoreProperties("persona")
+    //@JsonIgnoreProperties("persona")
+    @JsonIgnore
     private List<PromemoriaEntity> promemoria;
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable
+    //@JsonIgnoreProperties("persone")
+    @JsonIgnore
     private List<AppuntamentoEntity> appuntamenti;
 
     public Long getId() {

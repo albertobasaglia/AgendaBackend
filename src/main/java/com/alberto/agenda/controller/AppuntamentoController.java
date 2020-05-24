@@ -41,6 +41,10 @@ public class AppuntamentoController {
         return appuntamentoRepository.findByIdAndPersoneContains(id,personaEntity);
     }
 
+
+//    @GetMapping("/view/")
+//    public List<AppuntamentoEntity>
+
     @PostMapping("/create")
     public ResponseEntity create(Authentication authentication, @Valid @RequestBody CreateAppuntamentoModel createAppuntamentoModel){
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
@@ -71,6 +75,7 @@ public class AppuntamentoController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(Authentication authentication, @PathVariable(value = "id") Long id) {
