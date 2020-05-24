@@ -10,4 +10,5 @@ import java.util.List;
 public interface PromemoriaRepository extends CrudRepository<PromemoriaEntity,Long> {
     List<PromemoriaEntity> findByPersona(PersonaEntity persona);
     List<PromemoriaEntity> findByDataInizioIsBetweenOrDataFineIsBetween(Date a1, Date b1, Date a2, Date b2);
+    PromemoriaEntity findByIdAndPersona(Long id, PersonaEntity persona);
 }

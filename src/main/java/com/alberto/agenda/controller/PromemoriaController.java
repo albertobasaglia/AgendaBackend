@@ -27,11 +27,17 @@ public class PromemoriaController {
         this.promemoriaRepository = promemoriaRepository;
     }
 
-    @GetMapping("/me")
-    public List<PromemoriaEntity> getMine(Authentication authentication) {
+    @GetMapping("/view")
+    public List<PromemoriaEntity> viewAll(Authentication authentication) {
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
         List<PromemoriaEntity> lista = promemoriaRepository.findByPersona(personaEntity);
         return lista;
+    }
+
+    @GetMapping("/view/{id}")
+    public PromemoriaEntity viewById(Authentication authentication, @PathVariable(value = "id") Long id) {
+        PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
+        return promemoriaRepository.findByIdAndPersona(id,personaEntity);
     }
 
     @PostMapping("/create")
@@ -52,6 +58,18 @@ public class PromemoriaController {
             promemoriaEntity.setDataInizio(promemoriaModel.getDataInizio());
             promemoriaEntity.setDataFine(promemoriaModel.getDataFine());
             promemoriaRepository.save(promemoriaEntity);
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(Authentication authentication, @PathVariable(value = "id") Long id) {
+        PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
+        PromemoriaEntity promemoriaEntity = promemoriaRepository.findByIdAndPersona(id,personaEntity);
+        if(promemoriaEntity != null) {
+            promemoriaRepository.delete(promemoriaEntity);
             return new ResponseEntity(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

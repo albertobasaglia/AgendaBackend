@@ -20,6 +20,14 @@ public class PromemoriaEntity {
     private Date dataFine;
     private String ricorrenza;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public PersonaEntity getPersona() {
         return persona;
     }
