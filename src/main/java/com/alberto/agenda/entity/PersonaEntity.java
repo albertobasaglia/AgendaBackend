@@ -1,6 +1,7 @@
 package com.alberto.agenda.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,6 +18,7 @@ public class PersonaEntity {
     @JsonIgnore
     private String password;
     @OneToMany(mappedBy = "persona")
+    @JsonIgnoreProperties("persona")
     private List<TelefonoEntity> telefoni;
     @OneToMany(mappedBy = "persona")
     private List<PromemoriaEntity> promemoria;

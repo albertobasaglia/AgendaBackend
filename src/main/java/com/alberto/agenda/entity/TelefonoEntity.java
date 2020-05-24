@@ -1,5 +1,7 @@
 package com.alberto.agenda.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +11,7 @@ public class TelefonoEntity {
     private Long id;
     private String numero;
     @ManyToOne
+    @JsonIgnoreProperties("telefoni")
     private PersonaEntity persona;
 
     public String getNumero() {
