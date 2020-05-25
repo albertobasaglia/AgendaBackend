@@ -8,10 +8,10 @@ import com.alberto.agenda.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/telefono")
@@ -23,7 +23,7 @@ public class TelefonoController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity createTelefono(Authentication authentication, @RequestBody TelefonoModel telefonoModel) {
         TelefonoEntity telefonoEntity = new TelefonoEntity();
         telefonoEntity.setNumero(telefonoModel.getNumero());
@@ -31,6 +31,27 @@ public class TelefonoController {
         telefonoEntity.setPersona(personaEntity);
         telefonoRepository.save(telefonoEntity);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{number}")
+    public ResponseEntity deleteTelefono(Authentication authentication, @PathVariable String number) {
+        PersonaEntity personaEntity =  this.userRepository.findByUsername(authentication.getName());
+        TelefonoEntity telefonoEntity = telefonoRepository.findByPersonaAndNumero(personaEntity, number);
+        telefonoRepository.delete(telefonoEntity);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/replace")
+    public List<TelefonoEntity> replace(Authentication authentication, @RequestBody List<TelefonoModel> telefonoModelsList) {
+        PersonaEntity personaEntity = this.userRepository.findByUsername(authentication.getName());
+        telefonoRepository.deleteByPersona(personaEntity);
+        for(TelefonoModel telefonoModel: telefonoModelsList) {
+            TelefonoEntity nuovo = new TelefonoEntity();
+            nuovo.setNumero(telefonoModel.getNumero());
+            nuovo.setPersona(personaEntity);
+            telefonoRepository.save(nuovo);
+        }
+        return telefonoRepository.findByPersona(personaEntity);
     }
 
 }
