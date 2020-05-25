@@ -9,7 +9,7 @@ import java.util.List;
 public interface TelefonoRepository extends CrudRepository<TelefonoEntity,Long> {
     TelefonoEntity findByPersonaAndNumero(PersonaEntity persona, String numero);
 
-    TelefonoEntity deleteByPersona(PersonaEntity persona);
+    Long deleteByPersona(PersonaEntity persona);
 
     List<TelefonoEntity> findByPersona(PersonaEntity persona);
 }

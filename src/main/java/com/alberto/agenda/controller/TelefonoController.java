@@ -8,6 +8,7 @@ import com.alberto.agenda.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class TelefonoController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @Transactional
     @PutMapping("/replace")
     public List<TelefonoEntity> replace(Authentication authentication, @RequestBody List<TelefonoModel> telefonoModelsList) {
         PersonaEntity personaEntity = this.userRepository.findByUsername(authentication.getName());
