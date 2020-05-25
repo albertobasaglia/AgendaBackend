@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(value = "/persona")
+@CrossOrigin("http://localhost:4200")
 public class PersonaController {
     UserRepository userRepository;
     public PersonaController(UserRepository userRepository) {
