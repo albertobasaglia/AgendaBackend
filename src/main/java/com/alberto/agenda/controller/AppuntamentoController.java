@@ -44,9 +44,10 @@ public class AppuntamentoController {
 
 //    @GetMapping("/view/")
 //    public List<AppuntamentoEntity>
+//    from a date to an other date
 
     @PostMapping("/create")
-    public ResponseEntity create(Authentication authentication, @Valid @RequestBody CreateAppuntamentoModel createAppuntamentoModel){
+    public ResponseEntity<AppuntamentoEntity> create(Authentication authentication, @Valid @RequestBody CreateAppuntamentoModel createAppuntamentoModel){
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
         //check if all users exist
         int usersInClientList = createAppuntamentoModel.getPersonaIds().size();
@@ -70,7 +71,7 @@ public class AppuntamentoController {
                 personaEntities.get(i).getAppuntamenti().add(addedAppuntamento);
                 userRepository.save(personaEntities.get(i));
             }
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity(addedAppuntamento, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
