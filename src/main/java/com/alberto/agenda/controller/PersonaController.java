@@ -29,13 +29,13 @@ public class PersonaController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity updateInfo(Authentication authentication, @RequestBody PersonaInfo personaInfo) {
+    public ResponseEntity<PersonaInfo> updateInfo(Authentication authentication, @RequestBody PersonaInfo personaInfo) {
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
         personaEntity.setEmail(personaInfo.getEmail());
         personaEntity.setNome(personaInfo.getNome());
         personaEntity.setCognome(personaInfo.getCognome());
         userRepository.save(personaEntity);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(personaEntity, HttpStatus.OK);
     }
 
    private List<PersonaInfo> mapEntityToInfo(List<PersonaEntity> personaEntities) {
