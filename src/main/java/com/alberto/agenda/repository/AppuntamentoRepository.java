@@ -13,5 +13,6 @@ import java.util.List;
 public interface AppuntamentoRepository extends CrudRepository<AppuntamentoEntity,Long> {
     List<AppuntamentoEntity> findByPersoneContains(PersonaEntity persona);
     AppuntamentoEntity findByIdAndPersoneContains(Long id, PersonaEntity person);
-    List<AppuntamentoEntity> findByDataInizioIsBetweenOrDataFineIsBetweenAndPersoneContains(Date dataInizio1, Date dataFine1, Date dataInizio2, Date dataFine2, PersonaEntity persone);
+    List<AppuntamentoEntity> findByDataInizioIsBetweenAndPersoneContainsOrDataFineIsBetweenAndPersoneContains(Date dataInizio, Date dataInizio2, PersonaEntity persone, Date dataFine, Date dataFine2, PersonaEntity persone2);
+    int countByDataInizioIsBetweenAndPersoneContainsOrDataFineIsBetweenAndPersoneContains(Date dataInizio, Date dataInizio2, PersonaEntity persone, Date dataFine, Date dataFine2, PersonaEntity persone2);
 }

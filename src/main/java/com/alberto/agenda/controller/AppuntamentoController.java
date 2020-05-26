@@ -49,9 +49,10 @@ public class AppuntamentoController {
         Date dateFrom = dateFormat.parse(from);
         Date dateTo = dateFormat.parse(to);
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
-        List<AppuntamentoEntity> lista = appuntamentoRepository.findByDataInizioIsBetweenOrDataFineIsBetweenAndPersoneContains(
+        List<AppuntamentoEntity> lista = appuntamentoRepository.findByDataInizioIsBetweenAndPersoneContainsOrDataFineIsBetweenAndPersoneContains(
                 dateFrom,
                 dateTo,
+                personaEntity,
                 dateFrom,
                 dateTo,
                 personaEntity
