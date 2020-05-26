@@ -59,6 +59,14 @@ public class AppuntamentoController {
         return lista;
     }
 
+    @GetMapping("/persona/{id}")
+    public List<PersonaEntity> persone(@PathVariable Long id) {
+        AppuntamentoEntity appuntamentoEntity = appuntamentoRepository.findById(id).get();
+        return appuntamentoEntity.getPersone();
+    }
+
+
+
 
     @PostMapping("/create")
     public ResponseEntity<AppuntamentoEntity> create(Authentication authentication, @Valid @RequestBody CreateAppuntamentoModel createAppuntamentoModel){

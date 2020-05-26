@@ -1,5 +1,6 @@
 package com.alberto.agenda.repository;
 
+import com.alberto.agenda.entity.AppuntamentoEntity;
 import com.alberto.agenda.entity.PersonaEntity;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,4 +13,5 @@ public interface UserRepository extends CrudRepository<PersonaEntity,Long> {
     List<PersonaEntity> findAll();
     int countByIdIn(Collection<Long> id);
     List<PersonaEntity> findByIdIn(Collection<Long> id);
+    List<PersonaEntity> findByAppuntamentiContains(AppuntamentoEntity appuntamento);
 }
