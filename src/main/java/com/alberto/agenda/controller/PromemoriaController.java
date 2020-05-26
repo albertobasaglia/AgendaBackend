@@ -48,9 +48,10 @@ public class PromemoriaController {
         Date dateFrom = dateFormat.parse(from);
         Date dateTo = dateFormat.parse(to);
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
-        List<PromemoriaEntity> lista = promemoriaRepository.findByDataInizioIsBetweenOrDataFineIsBetweenAndPersona(
+        List<PromemoriaEntity> lista = promemoriaRepository.findByDataInizioIsBetweenAndPersonaOrDataFineIsBetweenAndPersona(
                 dateFrom,
                 dateTo,
+                personaEntity,
                 dateFrom,
                 dateTo,
                 personaEntity

@@ -19,7 +19,7 @@ public class AppuntamentoEntity {
 
     private Date dataFine;
 
-    @ManyToMany(mappedBy = "appuntamenti", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "appuntamenti", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("appuntamenti")
     private List<PersonaEntity> persone;
 

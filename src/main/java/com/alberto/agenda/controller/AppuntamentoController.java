@@ -106,7 +106,8 @@ public class AppuntamentoController {
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
         AppuntamentoEntity appuntamentoEntity = appuntamentoRepository.findByIdAndPersoneContains(id,personaEntity);
         if(appuntamentoEntity != null) {
-            appuntamentoRepository.delete(appuntamentoEntity);
+            personaEntity.getAppuntamenti().remove(appuntamentoEntity);
+            userRepository.save(personaEntity);
             return new ResponseEntity(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
