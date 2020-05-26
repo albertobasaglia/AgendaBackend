@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface PromemoriaRepository extends CrudRepository<PromemoriaEntity,Long> {
     List<PromemoriaEntity> findByPersona(PersonaEntity persona);
-    List<PromemoriaEntity> findByDataInizioIsBetweenOrDataFineIsBetween(Date a1, Date b1, Date a2, Date b2);
+    List<PromemoriaEntity> findByDataInizioIsBetweenOrDataFineIsBetweenAndPersona(Date dataInizio1, Date dataFine1, Date dataInizio2, Date dataFine2, PersonaEntity persona);
     PromemoriaEntity findByIdAndPersona(Long id, PersonaEntity persona);
 }

@@ -1,5 +1,6 @@
 package com.alberto.agenda.controller;
 
+import com.alberto.agenda.entity.AppuntamentoEntity;
 import com.alberto.agenda.entity.PersonaEntity;
 import com.alberto.agenda.entity.PromemoriaEntity;
 import com.alberto.agenda.model.PromemoriaModel;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/promemoria")
@@ -38,6 +40,22 @@ public class PromemoriaController {
     public PromemoriaEntity viewById(Authentication authentication, @PathVariable(value = "id") Long id) {
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
         return promemoriaRepository.findByIdAndPersona(id,personaEntity);
+    }
+
+    @GetMapping("/viewDate")
+    public List<PromemoriaEntity> viewDate(Authentication authentication, @RequestParam String from, @RequestParam String to) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date dateFrom = dateFormat.parse(from);
+        Date dateTo = dateFormat.parse(to);
+        PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
+        List<PromemoriaEntity> lista = promemoriaRepository.findByDataInizioIsBetweenOrDataFineIsBetweenAndPersona(
+                dateFrom,
+                dateTo,
+                dateFrom,
+                dateTo,
+                personaEntity
+        );
+        return lista;
     }
 
     @PostMapping("/create")

@@ -15,9 +15,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/appuntamento")
@@ -42,9 +43,22 @@ public class AppuntamentoController {
     }
 
 
-//    @GetMapping("/view/")
-//    public List<AppuntamentoEntity>
-//    from a date to an other date
+    @GetMapping("/viewDate")
+    public List<AppuntamentoEntity> viewDate(Authentication authentication, @RequestParam String from, @RequestParam String to) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date dateFrom = dateFormat.parse(from);
+        Date dateTo = dateFormat.parse(to);
+        PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
+        List<AppuntamentoEntity> lista = appuntamentoRepository.findByDataInizioIsBetweenOrDataFineIsBetweenAndPersoneContains(
+                dateFrom,
+                dateTo,
+                dateFrom,
+                dateTo,
+                personaEntity
+        );
+        return lista;
+    }
+
 
     @PostMapping("/create")
     public ResponseEntity<AppuntamentoEntity> create(Authentication authentication, @Valid @RequestBody CreateAppuntamentoModel createAppuntamentoModel){
