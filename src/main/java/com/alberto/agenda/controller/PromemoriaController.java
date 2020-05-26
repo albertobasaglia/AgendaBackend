@@ -59,7 +59,7 @@ public class PromemoriaController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity create(Authentication authentication, @Valid @RequestBody PromemoriaModel promemoriaModel) {
+    public ResponseEntity<PromemoriaEntity> create(Authentication authentication, @Valid @RequestBody PromemoriaModel promemoriaModel) {
         PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
         PromemoriaEntity promemoriaEntity = new PromemoriaEntity();
         promemoriaEntity.setPersona(personaEntity);
@@ -68,7 +68,7 @@ public class PromemoriaController {
         promemoriaEntity.setDataInizio(promemoriaModel.getDataInizio());
         promemoriaEntity.setDataFine(promemoriaModel.getDataFine());
         promemoriaRepository.save(promemoriaEntity);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(promemoriaEntity, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -83,7 +83,18 @@ public class PromemoriaController {
         }
     }
 
-    //TODO edit
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<PromemoriaEntity> update(Authentication authentication, @Valid @RequestBody PromemoriaModel promemoriaModel, @PathVariable Long id) {
+        PersonaEntity personaEntity = userRepository.findByUsername(authentication.getName());
+        PromemoriaEntity promemoriaEntity = promemoriaRepository.findByIdAndPersona(id,personaEntity);
+        promemoriaEntity.setRicorrenza(promemoriaModel.getRicorrenza());
+        promemoriaEntity.setDescrizione(promemoriaModel.getDescrizione());
+        promemoriaEntity.setDataInizio(promemoriaModel.getDataInizio());
+        promemoriaEntity.setDataFine(promemoriaModel.getDataFine());
+        promemoriaRepository.save(promemoriaEntity);
+        return new ResponseEntity(promemoriaEntity, HttpStatus.OK);
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
