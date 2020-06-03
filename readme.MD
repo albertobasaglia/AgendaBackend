@@ -1,13 +1,7 @@
-# Agenda
+# SpringBoot Agenda
 
-## Ipotesi
+This spring backend application creates some endpoints to manage an agenda containing appointments and reminders.
 
-- I promemoria possono sovrapporsi
+It uses JWT login.
 
-- quando si crea un appuntamento non viene chiesta conferma agli "invitati"
-
-- viene usato JWT per il login
-
-- uso l'ORM
-
-- per essere modificato l'appuntamento deve essere cancellato e ricreato
+[front-end](https://github.com/albertobasaglia/NgAgenda)
